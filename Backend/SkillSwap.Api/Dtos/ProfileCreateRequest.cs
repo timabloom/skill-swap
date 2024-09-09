@@ -13,5 +13,6 @@ public record ProfileCreateRequest(
     string? ImageUrl,
     ICollection<AddSkill>? Skills,
     ICollection<AddNeed>? Needs,
-    AddContactInformation? ContactInformation
+    [EmailAddress]
+    string? Email
 );

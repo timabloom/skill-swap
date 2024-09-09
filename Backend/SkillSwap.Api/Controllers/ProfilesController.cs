@@ -23,7 +23,7 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
             Needs = requestBody?.Needs?.Select(x => new Need { TagName = x.TagName }).ToList() ?? [],
             ContactInformation = new ContactInformation
             {
-                Email = requestBody?.ContactInformation?.Email ?? ""
+                Email = requestBody?.Email ?? string.Empty
             }
         };
         await _context.Profiles.AddAsync(profile);
