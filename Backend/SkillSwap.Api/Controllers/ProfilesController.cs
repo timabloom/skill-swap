@@ -16,6 +16,7 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
         var profile = new Profile
         {
             PublicId = Guid.NewGuid(),
+            ClerkId = requestBody.ClerkId,
             Name = requestBody.Name,
             Bio = requestBody?.Bio,
             ImageUrl = requestBody?.ImageUrl,
@@ -26,7 +27,7 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
                 Email = requestBody?.Email ?? string.Empty
             }
         };
-        await _context.Profiles.AddAsync(profile);
+        _context.Profiles.Add(profile);
         await _context.SaveChangesAsync();
 
         return CreatedAtAction("GetProfile", new { profile.PublicId }, (ProfileGetResponse)profile);
