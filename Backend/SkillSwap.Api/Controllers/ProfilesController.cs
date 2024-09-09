@@ -9,7 +9,18 @@ namespace SkillSwap.Api.Controllers;
 public class ProfilesController(SkillSwapContext context) : ControllerBase
 {
     private readonly SkillSwapContext _context = context;
-    
+
+    [HttpGet("{publicId}")]
+    public async Task<ActionResult<ProfileGetResponse>> GetProfile(Guid publicId)
+    {
+        var profile = await _context.Profiles.FindAsync(publicId);
+        if (profile == null)
+        {
+            return NotFound();
+        }
+        return (ProfileGetResponse)profile;
+    }
+
     [HttpPost]
     public async Task<ActionResult> CreateProfile(ProfileCreateRequest requestBody)
     {
