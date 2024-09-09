@@ -8,6 +8,7 @@ export const Route = createLazyFileRoute('/profile')({
 })
 
 type Inputs = {
+  picture: FileList;
   name: string
   bio?: string
   email?: string
@@ -21,10 +22,11 @@ function Profile() {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => postProfile({ ...data, clerkId: user?.id })
+  const onSubmit: SubmitHandler<Inputs> = (data) => postProfile({ ...data, clerkId: user?.id }, data.picture)
 
   return (
     <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
+      <input className="file-input file-input-bordered file-input-primary w-full" type="file" {...register("picture")} />
       <label htmlFor="name">Name* {errors.name && <span>This field is required</span>}</label>
       <input className="input input-bordered input-primary w-full" {...register("name", { required: true })} />
       <label htmlFor="bio">Bio</label>
