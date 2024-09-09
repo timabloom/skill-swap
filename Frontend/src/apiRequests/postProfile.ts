@@ -8,17 +8,17 @@ interface PostProfileBody {
     email?: string
 }
 
-export async function postProfile(PostProfileBody: PostProfileBody) {
-    if (!PostProfileBody.clerkId) return;
+export async function postProfile(postProfileBody: PostProfileBody) {
+    if (!postProfileBody.clerkId) return;
     try {
         const response = await fetch('http://localhost:5257/Profiles', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                PostProfileBody
-            }),
+            body: JSON.stringify(
+                postProfileBody
+            ),
         })
 
         console.log(await response.json());
