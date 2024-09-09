@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SkillSwap.Api.Dtos;
 using SkillSwap.Api.Models;
 
@@ -10,10 +11,10 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
 {
     private readonly SkillSwapContext _context = context;
 
-    [HttpGet("{publicId}")]
-    public async Task<ActionResult<ProfileGetResponse>> GetProfile(Guid publicId)
+    [HttpGet("{clerkId}")]
+    public async Task<ActionResult<ProfileGetResponse>> GetProfile(string clerkId)
     {
-        var profile = await _context.Profiles.FindAsync(publicId);
+        var profile = await _context.Profiles.FindAsync(clerkId);
         if (profile == null)
         {
             return NotFound();
