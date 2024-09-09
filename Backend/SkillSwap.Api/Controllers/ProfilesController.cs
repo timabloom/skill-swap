@@ -42,6 +42,6 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
         _context.Profiles.Add(profile);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction("GetProfile", new { profile.PublicId }, (ProfileGetResponse)profile);
+        return CreatedAtAction("GetProfile", new { profile.ClerkId }, (ProfileGetResponse)profile);
     }
 }
