@@ -1,10 +1,13 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
+import { postProfile } from '../apiRequests/postProfile'
+import { useUser } from '@clerk/clerk-react'
 
 export const Route = createLazyFileRoute('/profile')({
   component: Profile,
 })
 
 function Profile() {
+  const { user } = useUser()
 
   return (
     <div>
@@ -14,6 +17,7 @@ function Profile() {
       <p>Skills: </p>
       <p>Needs: </p>
       <p>Email:</p>
+      <button onClick={() => postProfile({ clerkId: user?.id, name: 'test'})}>Add Profile</button>
     </div>
   )
 }
