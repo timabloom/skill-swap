@@ -4,6 +4,7 @@ namespace SkillSwap.Api.Dtos;
 
 public record ProfileGetResponse(
     Guid PublicId,
+    string ClerkId,
     string Name,
     string? Bio,
     string? ImageUrl,
@@ -17,6 +18,7 @@ public record ProfileGetResponse(
     {
         return new ProfileGetResponse(
             profile.PublicId,
+            profile.ClerkId,
             profile.Name,
             profile.Bio,
             profile.ImageUrl,
