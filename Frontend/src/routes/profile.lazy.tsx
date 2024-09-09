@@ -7,7 +7,13 @@ export const Route = createLazyFileRoute('/profile')({
 function Profile() {
 
   return (
-    <>
-    </>
+    <div>
+      <img src="" alt="profile image"></img>
+      <p>Name: </p>
+      <p>Bio: </p>
+      <p>Skills: </p>
+      <p>Needs: </p>
+      <p>Email:</p>
+    </div>
   )
 }
