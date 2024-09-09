@@ -14,7 +14,7 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
     [HttpGet("{clerkId}")]
     public async Task<ActionResult<ProfileGetResponse>> GetProfile(string clerkId)
     {
-        var profile = await _context.Profiles.FindAsync(clerkId);
+        var profile = await _context.Profiles.FirstOrDefaultAsync(x => x.ClerkId == clerkId);
         if (profile == null)
         {
             return NotFound();
