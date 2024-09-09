@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillSwap.Api", "SkillSwap.Api\SkillSwap.Api.csproj", "{42AFE238-A33E-423E-82C4-8A699ABDD369}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkillSwap.Api.Tests", "SkillSwap.Api.Tests\SkillSwap.Api.Tests.csproj", "{8A67EE5A-7BEC-409E-AB84-40C6B51D6B36}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{42AFE238-A33E-423E-82C4-8A699ABDD369}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42AFE238-A33E-423E-82C4-8A699ABDD369}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42AFE238-A33E-423E-82C4-8A699ABDD369}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A67EE5A-7BEC-409E-AB84-40C6B51D6B36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A67EE5A-7BEC-409E-AB84-40C6B51D6B36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A67EE5A-7BEC-409E-AB84-40C6B51D6B36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A67EE5A-7BEC-409E-AB84-40C6B51D6B36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
