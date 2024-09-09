@@ -22,9 +22,9 @@ export const Route = createRootRoute({
                     About
                 </Link>
                 <SignedOut>
-                    <SignInButton />
+                    <SignInButton forceRedirectUrl="/profile"/>
                 </SignedOut>
-                <SignedIn>
+                <SignedIn >
                     <SignOutButton />
                 </SignedIn>
             </header>
