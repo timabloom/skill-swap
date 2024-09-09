@@ -11,6 +11,9 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
 {
     private readonly SkillSwapContext _context = context;
 
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<ProfileGetListResponse>>> GetProfiles() => await _context.Profiles.Select(x => (ProfileGetListResponse)x).ToListAsync();
+
     [HttpGet("{clerkId}")]
     public async Task<ActionResult<ProfileGetResponse>> GetProfile(string clerkId)
     {
