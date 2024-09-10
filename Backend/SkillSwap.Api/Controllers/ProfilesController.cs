@@ -12,12 +12,27 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
     private readonly SkillSwapContext _context = context;
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ProfileGetListResponse>>> GetProfiles() => await _context.Profiles.Select(x => (ProfileGetListResponse)x).ToListAsync();
+    public async Task<ActionResult<IEnumerable<ProfileGetListResponse>>> GetProfiles(string skill)
+    {
+        return await _context.Profiles
+            .Include(x => x.Skills)
+            .Include(x => x.Needs)
+            .Where(x => x.Skills
+                .Any(x => x.TagName == skill))
+                .Select(x => (ProfileGetListResponse)x)
+                .ToListAsync();
+    }
 
     [HttpGet("{clerkId}")]
     public async Task<ActionResult<ProfileGetResponse>> GetProfile(string clerkId)
     {
-        var profile = await _context.Profiles.FirstOrDefaultAsync(x => x.ClerkId == clerkId);
+        var profile = await _context.Profiles
+            .Include(x => x.Skills)
+            .Include(x => x.Needs)
+            .Include(x => x.Connections)
+            .Include(x => x.ContactInformation)
+            .FirstOrDefaultAsync(x => x.ClerkId == clerkId);
+
         if (profile == null)
         {
             return NotFound();
