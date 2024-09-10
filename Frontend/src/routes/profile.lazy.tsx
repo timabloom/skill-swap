@@ -69,6 +69,16 @@ function Profile() {
     }
   }
 
+  function handleAddNeeds(event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) {
+    event.preventDefault()
+    if (skillsList.includes(searchNeeds) && !needs.includes({ tagName: searchNeeds })) {
+      setNeeds([...needs, { tagName: searchNeeds }])
+      setSearchNeeds("")
+    } else {
+      console.log("Need not added")
+    }
+  }
+
   return (
     <div className="flex items-center justify-center p-10">
       <form className="flex flex-col max-w-2xl border rounded-md p-12" onSubmit={handleSubmit(onSubmit)}>
@@ -87,7 +97,7 @@ function Profile() {
         <label className="pt-8 pb-1" htmlFor="bio">Bio</label>
         <textarea className="textarea textarea-primary min-h-40" {...register("bio", { required: false })} />
 
-        <label className="pt-8 pb-1" htmlFor="Skills">Skills</label>
+        <label className="pt-8 pb-1" htmlFor="skills">Your skills?</label>
         <div className="flex gap-2">
           <input className="input input-bordered input-primary w-full" list="skills-list" value={searchSkills} onChange={(e) => setSearchSkills(e.target.value)} />
           <datalist id="skills-list">
@@ -102,6 +112,23 @@ function Profile() {
         </div>
         <div className="flex flex-wrap gap-1 pt-2 pb-2">
           {skills.map((skill) => <div key={skill.tagName} className="badge badge-accent">{skill.tagName}</div>)}
+        </div>
+
+        <label className="pt-8 pb-1" htmlFor="needs">Need help with?</label>
+        <div className="flex gap-2">
+          <input className="input input-bordered input-primary w-full" list="needs-list" value={searchNeeds} onChange={(e) => setSearchNeeds(e.target.value)} />
+          <datalist id="needs-list">
+            {skillsList
+              .filter((option) =>
+                option.toLowerCase().slice(0, searchNeeds.length) === searchNeeds.toLowerCase())
+              .map((option) => (
+                <option key={option}>{option}</option>
+              ))}
+          </datalist>
+          <button className="btn btn-primary w-12 text-xl" onClick={(e) => handleAddNeeds(e)}>+</button>
+        </div>
+        <div className="flex flex-wrap gap-1 pt-2 pb-2">
+          {needs.map((need) => <div key={need.tagName} className="badge badge-accent">{need.tagName}</div>)}
         </div>
 
         <h2 className="text-xl pt-10 pb-4">Contact Information</h2>
