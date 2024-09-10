@@ -18,6 +18,7 @@ import { Route as rootRoute } from './routes/__root'
 
 const ProfileLazyImport = createFileRoute('/profile')()
 const MatchesLazyImport = createFileRoute('/matches')()
+const CreateProfileLazyImport = createFileRoute('/create-profile')()
 const ConnectionsLazyImport = createFileRoute('/connections')()
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
@@ -33,6 +34,13 @@ const MatchesLazyRoute = MatchesLazyImport.update({
   path: '/matches',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/matches.lazy').then((d) => d.Route))
+
+const CreateProfileLazyRoute = CreateProfileLazyImport.update({
+  path: '/create-profile',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/create-profile.lazy').then((d) => d.Route),
+)
 
 const ConnectionsLazyRoute = ConnectionsLazyImport.update({
   path: '/connections',
@@ -74,6 +82,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConnectionsLazyImport
       parentRoute: typeof rootRoute
     }
+    '/create-profile': {
+      id: '/create-profile'
+      path: '/create-profile'
+      fullPath: '/create-profile'
+      preLoaderRoute: typeof CreateProfileLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/matches': {
       id: '/matches'
       path: '/matches'
@@ -97,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
   '/connections': typeof ConnectionsLazyRoute
+  '/create-profile': typeof CreateProfileLazyRoute
   '/matches': typeof MatchesLazyRoute
   '/profile': typeof ProfileLazyRoute
 }
@@ -105,6 +121,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
   '/connections': typeof ConnectionsLazyRoute
+  '/create-profile': typeof CreateProfileLazyRoute
   '/matches': typeof MatchesLazyRoute
   '/profile': typeof ProfileLazyRoute
 }
@@ -114,16 +131,36 @@ export interface FileRoutesById {
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
   '/connections': typeof ConnectionsLazyRoute
+  '/create-profile': typeof CreateProfileLazyRoute
   '/matches': typeof MatchesLazyRoute
   '/profile': typeof ProfileLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/connections' | '/matches' | '/profile'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/connections'
+    | '/create-profile'
+    | '/matches'
+    | '/profile'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/connections' | '/matches' | '/profile'
-  id: '__root__' | '/' | '/about' | '/connections' | '/matches' | '/profile'
+  to:
+    | '/'
+    | '/about'
+    | '/connections'
+    | '/create-profile'
+    | '/matches'
+    | '/profile'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/connections'
+    | '/create-profile'
+    | '/matches'
+    | '/profile'
   fileRoutesById: FileRoutesById
 }
 
@@ -131,6 +168,7 @@ export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   AboutLazyRoute: typeof AboutLazyRoute
   ConnectionsLazyRoute: typeof ConnectionsLazyRoute
+  CreateProfileLazyRoute: typeof CreateProfileLazyRoute
   MatchesLazyRoute: typeof MatchesLazyRoute
   ProfileLazyRoute: typeof ProfileLazyRoute
 }
@@ -139,6 +177,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   AboutLazyRoute: AboutLazyRoute,
   ConnectionsLazyRoute: ConnectionsLazyRoute,
+  CreateProfileLazyRoute: CreateProfileLazyRoute,
   MatchesLazyRoute: MatchesLazyRoute,
   ProfileLazyRoute: ProfileLazyRoute,
 }
@@ -158,6 +197,7 @@ export const routeTree = rootRoute
         "/",
         "/about",
         "/connections",
+        "/create-profile",
         "/matches",
         "/profile"
       ]
@@ -170,6 +210,9 @@ export const routeTree = rootRoute
     },
     "/connections": {
       "filePath": "connections.lazy.tsx"
+    },
+    "/create-profile": {
+      "filePath": "create-profile.lazy.tsx"
     },
     "/matches": {
       "filePath": "matches.lazy.tsx"
