@@ -26,10 +26,10 @@ function Profile() {
 
   return (
     <div className="flex items-center justify-center p-10">
-      <form className="flex flex-col max-w-96 border rounded-md p-12" onSubmit={handleSubmit(onSubmit)}>
+      <form className="flex flex-col max-w-2xl border rounded-md p-12" onSubmit={handleSubmit(onSubmit)}>
         <h1 className="text-3xl text-center pb-8">Create Profile</h1>
 
-        <div className="border rounded-2xl w-72 h-72 flex flex-col justify-end items-center">
+        <div className="border rounded-2xl w-auto h-72 flex flex-col justify-end items-center">
           <div className="w-24 h-24 bg-gray-300 rounded-full mb-2" rounded-full ></div>
           <div className="w-24 h-32 bg-gray-300 rounded-t-full" rounded-full ></div>
         </div>
