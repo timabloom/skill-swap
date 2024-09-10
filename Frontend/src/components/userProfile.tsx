@@ -1,6 +1,14 @@
+import { useUser } from "@clerk/clerk-react"
+import { postConnection } from "../apiRequests/postConnection"
 import { ProfileResponse } from "../types"
 
 function UserProfile({ profile }: { profile: ProfileResponse | undefined }) {
+    const { user } = useUser()
+
+    async function handleConnect() {
+        const connection = await postConnection(user?.id, profile?.publicId)
+        console.log(connection?.status === 204)
+    }
 
     return (
         <div className="flex items-center justify-center p-10">
@@ -31,6 +39,13 @@ function UserProfile({ profile }: { profile: ProfileResponse | undefined }) {
                 <p>{profile?.skills?.map((skill) => skill.tagName)}</p>
                 <p>Needs</p>
                 <p>{profile?.needs?.map((need) => need.tagName)}</p>
+
+                {!profile?.clerkId &&
+                    <>
+                        <p>Wish to connect?</p>
+                        <button className="btn" onClick={() => handleConnect()}>Click to Connect</button>
+                    </>
+                }
             </div>
         </div >
     )
