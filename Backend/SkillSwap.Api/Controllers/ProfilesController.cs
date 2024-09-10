@@ -62,4 +62,34 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
 
         return CreatedAtAction("GetProfile", new { profile.ClerkId }, (ProfileGetResponse)profile);
     }
+
+    [HttpPost("Connections")]
+    public async Task<IActionResult> ConnectToProfile(ConnectionCreateRequest requestBody)
+    {
+        var profile = await _context.Profiles
+            .Include(x => x.Connections)
+            .FirstOrDefaultAsync(x => x.ClerkId == requestBody.ClerkId);
+        if (profile == null)
+        {
+            return NotFound("ClerkId not found");
+        }
+
+        var connection = await _context.Profiles
+            .FirstOrDefaultAsync(x => x.PublicId == requestBody.ProfileMatchPublicId);
+        if (connection == null)
+        {
+            return NotFound("ProfileMatchPublicId not found");
+        }
+
+        profile.Connections.Add(new Connection
+        {
+            PublicId = Guid.NewGuid(),
+            ProfileMatchId = connection.Id,
+            ProfileMatchPublicId = connection.PublicId,
+            ProfileMatch = connection,
+            IsAccepted = true
+        });
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
 }
