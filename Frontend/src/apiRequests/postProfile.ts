@@ -4,7 +4,6 @@ import { PostProfileBody } from "../types"
 export async function postProfile(postProfileBody: PostProfileBody, fileInput?: FileList) {
     if (!postProfileBody.clerkId) return
 
-    console.log(postProfileBody)
     try {
         const imageUrl = await UploadProfileImageToCloud(fileInput)
         const response = await fetch('http://localhost:5257/Profiles', {

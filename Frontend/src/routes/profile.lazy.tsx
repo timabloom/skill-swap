@@ -22,8 +22,6 @@ function Profile() {
     fetchProfile()
   }, [user?.id])
 
-  console.log(profile)
-
   return (
     <>
       <Header />
