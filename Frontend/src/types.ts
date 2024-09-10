@@ -1,6 +1,6 @@
 export interface ProfileResponse {
     publicId: string
-    clerkId: string
+    clerkId?: string
     name: string
     bio?: string
     imageUrl?: string
