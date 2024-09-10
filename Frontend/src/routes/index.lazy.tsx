@@ -17,7 +17,7 @@ function Index() {
                     <div className="flex flex-col">
                         <p className="text-3xl pt-10">Register now to start collaborating and building valuable connections.</p>
                         <SignedOut>
-                            <SignUpButton className="btn btn-primary w-36 text-xl mt-4" signInForceRedirectUrl="/create-profile">Sign Up</SignUpButton>
+                            <SignUpButton signInForceRedirectUrl="/create-profile"><button className="btn btn-primary w-36 text-xl mt-4">Sign Up</button></SignUpButton>
                         </SignedOut>
                     </div>
                 </div>

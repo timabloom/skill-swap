@@ -26,13 +26,13 @@ function Header() {
                     About
                 </Link>
                 <SignedOut>
-                    <SignInButton className="text-xl" forceRedirectUrl="/profile" />
+                    <SignInButton forceRedirectUrl="/profile"><button className="text-xl" >Sign In</button></SignInButton>
                 </SignedOut>
                 <SignedIn >
-                    <SignOutButton className="text-xl" />
+                    <SignOutButton><button className="text-xl">Sign Out</button></SignOutButton>
                 </SignedIn>
                 <SignedOut>
-                    <SignUpButton className="btn btn-primary w-32 text-xl" signInForceRedirectUrl="/create-profile" >Sign Up</SignUpButton>
+                    <SignUpButton signInForceRedirectUrl="/create-profile"><button className="btn btn-primary w-32 text-xl">Sign Up</button></SignUpButton>
                 </SignedOut>
             </div>
         </header>
