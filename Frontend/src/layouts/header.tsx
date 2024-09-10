@@ -1,7 +1,8 @@
-import { SignedIn, SignedOut, SignInButton, SignOutButton, SignUpButton } from '@clerk/clerk-react'
+import { SignedIn, SignedOut, SignInButton, SignOutButton, SignUpButton, useUser } from '@clerk/clerk-react'
 import { Link } from '@tanstack/react-router'
 
 function Header() {
+    const { user } = useUser()
 
     return (
         <header className="flex items-center justify-between p-4 pl-6 pr-6">
@@ -13,15 +14,21 @@ function Header() {
                 <Link to="/" className="[&.active]:font-bold text-xl">
                     Home
                 </Link>
-                <Link to="/profile" className="[&.active]:font-bold text-xl">
-                    Profile
-                </Link>
-                <Link to="/matches" className="[&.active]:font-bold text-xl">
-                    Matches
-                </Link>
-                <Link to="/connections" className="[&.active]:font-bold text-xl">
-                    Connections
-                </Link>
+                
+                {user &&
+                    <>
+                        <Link to="/profile" className="[&.active]:font-bold text-xl">
+                            Profile
+                        </Link>
+                        <Link to="/matches" className="[&.active]:font-bold text-xl">
+                            Matches
+                        </Link>
+                        <Link to="/connections" className="[&.active]:font-bold text-xl">
+                            Connections
+                        </Link>
+                    </>
+                }
+
                 <Link to="/about" className="[&.active]:font-bold text-xl">
                     About
                 </Link>
