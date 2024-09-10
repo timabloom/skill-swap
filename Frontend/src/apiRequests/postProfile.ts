@@ -33,7 +33,7 @@ export async function postProfile(postProfileBody: PostProfileBody, fileInput?: 
             ),
         })
 
-        console.log(await response.json())
+        return await response.json()
     } catch (error) {
         if (error instanceof Error) {
             console.log(error.message)

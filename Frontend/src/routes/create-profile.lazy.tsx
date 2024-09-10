@@ -1,4 +1,4 @@
-import { createLazyFileRoute } from '@tanstack/react-router'
+import { createLazyFileRoute, useNavigate } from '@tanstack/react-router'
 import { postProfile } from '../apiRequests/postProfile'
 import { useUser } from '@clerk/clerk-react'
 import { useForm, SubmitHandler } from "react-hook-form"
@@ -52,12 +52,17 @@ function CreateProfile() {
   const [skills, setSkills] = useState<skill[]>([])
   const [needs, setNeeds] = useState<need[]>([])
 
+  const navigate = useNavigate({ from: '/create-profile' })
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => postProfile({ ...data, clerkId: user?.id, skills: skills, needs: needs }, data.picture)
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const profile = await postProfile({ ...data, clerkId: user?.id, skills: skills, needs: needs }, data.picture)
+    if (profile) navigate({ to: '/profile' });
+  }
 
   function handleAddSkills(event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) {
     event.preventDefault()
