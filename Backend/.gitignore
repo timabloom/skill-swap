@@ -3,6 +3,9 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
+# drop tables in dev
+DropDb.sql
+
 # dotenv files
 .env
 
