@@ -4,13 +4,23 @@ interface PostProfileBody {
     clerkId?: string
     name: string
     bio?: string
-    skills?: string[]
-    needs?: string[]
+    skills?: skill[]
+    needs?: need[]
     email?: string
+}
+
+interface skill {
+    tagName: string
+}
+
+interface need {
+    tagName: string
 }
 
 export async function postProfile(postProfileBody: PostProfileBody, fileInput?: FileList) {
     if (!postProfileBody.clerkId) return
+
+    console.log(postProfileBody)
     try {
         const imageUrl = await UploadProfileImageToCloud(fileInput)
         const response = await fetch('http://localhost:5257/Profiles', {
