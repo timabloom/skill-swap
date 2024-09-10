@@ -4,44 +4,15 @@ import Header from '../layouts/header'
 import { useEffect, useState } from 'react'
 import { getProfile } from '../apiRequests/getProfile'
 import UserProfile from '../components/userProfile'
+import { ProfileResponse } from '../types'
 
 export const Route = createLazyFileRoute('/profile')({
   component: Profile,
 })
 
-interface Profile {
-  publicId: string
-  clerkId: string
-  name: string
-  bio?: string
-  imageUrl?: string
-  needs?: Need[]
-  skills?: Skill[]
-  connections?: Connection[]
-  contactInformation?: {
-    publicId: string
-    email: string
-  }
-}
-
-interface Skill {
-  publicId: string
-  tagName: string
-}
-
-interface Need {
-  publicId: string
-  tagName: string
-}
-
-interface Connection {
-  publicId: string
-  isAccepted: boolean
-}
-
 function Profile() {
   const { user } = useUser()
-  const [profile, setProfile] = useState<Profile>()
+  const [profile, setProfile] = useState<ProfileResponse>()
 
   useEffect(() => {
     const fetchProfile = async () => {

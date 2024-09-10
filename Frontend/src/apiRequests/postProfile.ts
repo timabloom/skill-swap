@@ -1,21 +1,5 @@
 import { BlobServiceClient } from "@azure/storage-blob"
-
-interface PostProfileBody {
-    clerkId?: string
-    name: string
-    bio?: string
-    skills?: skill[]
-    needs?: need[]
-    email?: string
-}
-
-interface skill {
-    tagName: string
-}
-
-interface need {
-    tagName: string
-}
+import { PostProfileBody } from "../types"
 
 export async function postProfile(postProfileBody: PostProfileBody, fileInput?: FileList) {
     if (!postProfileBody.clerkId) return

@@ -1,34 +1,6 @@
-interface Profile {
-    publicId: string
-    clerkId: string
-    name: string
-    bio?: string
-    imageUrl?: string
-    needs?: Need[]
-    skills?: Skill[]
-    connections?: Connection[]
-    contactInformation?: {
-        publicId: string
-        email: string
-    }
-}
+import { ProfileResponse } from "../types"
 
-interface Skill {
-    publicId: string
-    tagName: string
-}
-
-interface Need {
-    publicId: string
-    tagName: string
-}
-
-interface Connection {
-    publicId: string
-    isAccepted: boolean
-}
-
-function UserProfile({ profile }: { profile: Profile | undefined }) {
+function UserProfile({ profile }: { profile: ProfileResponse | undefined }) {
 
     return (
         <div className="flex items-center justify-center p-10">
