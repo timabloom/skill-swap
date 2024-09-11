@@ -21,6 +21,7 @@ function UserProfile({ profile }: { profile: ProfileResponse | undefined }) {
     })
 
     const isConnected = data?.connections?.find((connection) => connection.profileMatchPublicId === profile?.publicId)
+    const need = data?.needs?.[0]
 
     return (
         <div className="flex items-center justify-center p-10">
@@ -37,7 +38,7 @@ function UserProfile({ profile }: { profile: ProfileResponse | undefined }) {
                     <p className="text-lg font-bold">Name:</p>
                     <p className="text-lg">{profile?.name}</p>
                 </div>
-                {isConnected?.isAccepted === true && profile?.contactInformation &&
+                {profile?.contactInformation && profile?.contactInformation &&
                     <>
                         <p className="font-bold text-lg">Contact Information</p>
                         <p>{profile?.contactInformation?.email}</p>
@@ -50,7 +51,7 @@ function UserProfile({ profile }: { profile: ProfileResponse | undefined }) {
                 <p className="font-bold text-lg">My Skills</p>
                 <div className="flex flex-wrap gap-2 pb-2 pt-2">
                     {profile?.skills?.map((skill) =>
-                        <p className="badge bg-gray-300 p-4">{skill.tagName}</p>
+                        <p className={`badge ${need?.tagName === skill.tagName ? "badge-accent" : "bg-gray-300"} p-4`}>{skill.tagName}</p>
                     )}
                 </div>
                 <p className="font-bold text-lg">I Need help with?</p>
