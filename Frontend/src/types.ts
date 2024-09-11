@@ -25,6 +25,7 @@ interface Need {
 
 interface Connection {
     publicId: string
+    profileMatchPublicId: string
     isAccepted: boolean
 }
 
