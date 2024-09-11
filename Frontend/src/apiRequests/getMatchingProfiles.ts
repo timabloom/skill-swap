@@ -1,6 +1,9 @@
-export async function getMatchingProfiles(need: string | undefined) {
+import { getProfile } from "./getProfile"
+
+export async function getMatchingProfiles(clerkId: string | undefined) {
     try {
-        const response = await fetch(`http://localhost:5257/Profiles?Skill=${need}`, {
+        const profile = await getProfile(clerkId)
+        const response = await fetch(`http://localhost:5257/Profiles/Matches/${clerkId}?Skill=${profile.needs[0].tagName}`, {
             headers: {
                 'Content-Type': 'application/json',
             }

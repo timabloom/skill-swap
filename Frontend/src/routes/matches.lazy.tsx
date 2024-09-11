@@ -1,11 +1,10 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
 import Header from '../layouts/header'
 import { ProfileResponse } from '../types'
-import { useEffect, useState } from 'react'
 import { useUser } from '@clerk/clerk-react'
 import { getMatchingProfiles } from '../apiRequests/getMatchingProfiles'
-import { getProfile } from '../apiRequests/getProfile'
 import UserProfile from '../components/userProfile'
+import { useQuery } from '@tanstack/react-query'
 
 export const Route = createLazyFileRoute('/matches')({
   component: Matches,
@@ -13,23 +12,25 @@ export const Route = createLazyFileRoute('/matches')({
 
 function Matches() {
   const { user } = useUser()
-  const [profiles, setProfiles] = useState<ProfileResponse[] | undefined>()
+  console.log(user?.id)
+  const { isPending, isError, data, error } = useQuery<ProfileResponse[]>({
+    queryKey: ['matches'], queryFn: () => getMatchingProfiles(user?.id)
+  })
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      const profile: ProfileResponse | undefined = await getProfile(user?.id)
-      if (profile && profile.skills && profile.skills[0]) setProfiles(await getMatchingProfiles(profile.skills[0].tagName))
-    }
+  if (isPending) {
+    return <div>Loading...</div>
+  }
 
-    fetchProfile()
-  }, [user?.id])
+  if (isError) {
+    return <span>Error: {error.message}</span>
+  }
 
   return (
     <>
       <Header />
       <h1 className="text-3xl text-center pt-8">Matches</h1>
       <div className="flex flex-wrap gap-4">
-        {profiles?.map((profile) => (
+        {data.map((profile) => (
           <UserProfile key={profile.publicId} profile={profile} />
         ))}
       </div>
