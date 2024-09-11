@@ -2,7 +2,7 @@ import { getMatchingProfiles } from "./getMatchingProfiles"
 
 export async function postConnection(clerkId: string | undefined, publicId: string | undefined) {
     if (!clerkId) return
-    console.log(publicId)
+
     try {
         await fetch('http://localhost:5257/Profiles/Connections', {
             method: 'POST',

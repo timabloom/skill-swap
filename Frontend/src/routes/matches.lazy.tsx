@@ -12,7 +12,7 @@ export const Route = createLazyFileRoute('/matches')({
 
 function Matches() {
   const { user } = useUser()
-  console.log(user?.id)
+
   const { isPending, isError, data, error } = useQuery<ProfileResponse[]>({
     queryKey: ['matches'], queryFn: () => getMatchingProfiles(user?.id)
   })
