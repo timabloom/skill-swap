@@ -1,14 +1,26 @@
 import { useUser } from "@clerk/clerk-react"
 import { postConnection } from "../apiRequests/postConnection"
 import { ProfileResponse } from "../types"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { getProfile } from "../apiRequests/getProfile"
 
 function UserProfile({ profile }: { profile: ProfileResponse | undefined }) {
     const { user } = useUser()
+    const queryClient = useQueryClient()
 
-    async function handleConnect() {
-        const connection = await postConnection(user?.id, profile?.publicId)
-        console.log(connection?.status === 204)
-    }
+    const mutation = useMutation({
+        mutationFn: () => postConnection(user?.id, profile?.publicId),
+        onSuccess: () => {
+            // Invalidate and refetch
+            queryClient.invalidateQueries({ queryKey: ['matches'] })
+        },
+    })
+
+    const { data } = useQuery<ProfileResponse>({
+        queryKey: ['profile'], queryFn: () => getProfile(user?.id)
+    })
+
+    const isConnected = data?.connections?.find((connection) => connection.profileMatchPublicId === profile?.publicId)
 
     return (
         <div className="flex items-center justify-center p-10">
@@ -43,7 +55,7 @@ function UserProfile({ profile }: { profile: ProfileResponse | undefined }) {
                 {!profile?.clerkId &&
                     <>
                         <p>Wish to connect?</p>
-                        <button className="btn" onClick={() => handleConnect()}>Click to Connect</button>
+                        <button className={`btn ${mutation.isSuccess || isConnected?.isAccepted === true && "btn-success"}`} onClick={() => mutation.mutate()}>{mutation.isSuccess || isConnected?.isAccepted === true ? "Sent Interest to Connect!" : "Click to Connect!"}</button>
                     </>
                 }
             </div>

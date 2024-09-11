@@ -1,7 +1,10 @@
+import { getMatchingProfiles } from "./getMatchingProfiles"
+
 export async function postConnection(clerkId: string | undefined, publicId: string | undefined) {
     if (!clerkId) return
+    console.log(publicId)
     try {
-        const response = await fetch('http://localhost:5257/Profiles/Connections', {
+        await fetch('http://localhost:5257/Profiles/Connections', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -11,7 +14,7 @@ export async function postConnection(clerkId: string | undefined, publicId: stri
             ),
         })
 
-        return response
+        return await getMatchingProfiles("emma_w_303")
     } catch (error) {
         if (error instanceof Error) {
             console.log(error.message)
