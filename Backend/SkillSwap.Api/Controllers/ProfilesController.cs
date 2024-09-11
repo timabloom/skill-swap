@@ -29,11 +29,8 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
             .Include(x => x.Needs)
             .Include(x => x.Connections)
             .Where(x => x.ClerkId != profile.ClerkId)
-            .Where(x => x.Connections.Count == 0 || x.Connections
-                .Any(c => c.ProfileMatchPublicId == profile.PublicId && c.IsAccepted != true))
                 .Where(x => x.Skills
                     .Any(s => s.TagName == skill))
-                    .Select(x => (ProfileGetMatchesResponse)x)
                     .ToListAsync();
 
         var skillTags = profile.Skills
@@ -44,7 +41,11 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
             .Where(x => x.Needs != null && x.Needs
                 .Any(n => skillTags
                     .Contains(n.TagName)))
-                    .ToList();
+                    .Where(x => x.Connections.Count == 0 || profile.Connections.Count == 0 || x.Connections
+                        .Any(c => c.ProfileMatchPublicId == profile.PublicId && c.IsAccepted != true && profile.Connections
+                            .Any(c => c.ProfileMatchPublicId == x.PublicId && c.IsAccepted != true)))
+                            .Select(x => (ProfileGetMatchesResponse)x)
+                            .ToList();
     }
 
     [HttpGet("Connections/{clerkId}")]
