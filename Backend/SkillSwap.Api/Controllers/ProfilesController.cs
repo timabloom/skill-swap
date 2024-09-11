@@ -30,7 +30,7 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
             .Include(x => x.Connections)
             .Where(x => x.ClerkId != profile.ClerkId)
             .Where(x => x.Connections.Count == 0 || x.Connections
-                .Any(c => c.ProfileMatchPublicId == profile.PublicId && c.IsAccepted == false))
+                .Any(c => c.ProfileMatchPublicId == profile.PublicId && c.IsAccepted != true))
                 .Where(x => x.Skills
                     .Any(s => s.TagName == skill))
                     .Select(x => (ProfileGetMatchesResponse)x)
