@@ -24,25 +24,8 @@ interface need {
 }
 
 const skillsList = [
-  "Graphic Design",
-  "Cooking",
-  "Gardening",
-  "Tutoring",
-  "Photography",
-  "Writing and Editing",
-  "Web Development",
-  "Social Media Management",
-  "Home Repairs",
-  "Language Practice",
-  "Event Planning",
-  "Fitness Training",
-  "Music Lessons",
-  "Resume Writing",
-  "Digital Marketing",
-  "Public Speaking",
-  "Time Management",
-  "Basic Computer Skills",
-  "Financial Planning"
+  "JavaScript",
+  "Python"
 ];
 
 function CreateProfile() {
