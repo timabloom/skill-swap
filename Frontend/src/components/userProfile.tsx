@@ -11,8 +11,7 @@ function UserProfile({ profile }: { profile: ProfileResponse | undefined }) {
     const mutation = useMutation({
         mutationFn: () => postConnection(user?.id, profile?.publicId),
         onSuccess: () => {
-            // Invalidate and refetch
-            queryClient.invalidateQueries({ queryKey: ['matches'] })
+            queryClient.invalidateQueries({ queryKey: ['matches', 'connections'] })
         },
     })
 
