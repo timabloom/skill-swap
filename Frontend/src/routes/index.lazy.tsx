@@ -20,10 +20,9 @@ function Index() {
                             <SignUpButton signInForceRedirectUrl="/create-profile"><button className="btn btn-primary w-36 text-xl mt-4">Sign Up</button></SignUpButton>
                         </div>
                     </div>
-                    <img className="w-max -ml-20 -mt-32" src="/llline.svg" alt="" />
+                    <img className="w-max -ml-20 -mt-32 relative z-[-1]" src="/llline.svg" alt="" />
                 </div>
-                <img className="p-10 pl-0 max-w-4xl rounded-" style={{ borderRadius: "25% 75% 71% 29% / 65% 69% 31% 35%" }} src="/pexels-buro-millennial-636760-1438084.avif
-            " />
+                <img className="p-10 pl-0 max-w-4xl rounded" style={{ borderRadius: "25% 75% 71% 29% / 65% 69% 31% 35%" }} src="/pexels-buro-millennial-636760-1438084.avif" />
             </div>
         </>
     )
