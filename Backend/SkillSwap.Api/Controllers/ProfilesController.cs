@@ -47,6 +47,43 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
                     .ToList();
     }
 
+    [HttpGet("Connections/{clerkId}")]
+    public async Task<ActionResult<IEnumerable<ProfileGetListResponse>>> GetConnectingProfiles(string skill, string clerkId)
+    {
+        var profile = await _context.Profiles
+            .Include(x => x.Skills)
+            .Include(x => x.Connections)
+            .FirstOrDefaultAsync(x => x.ClerkId == clerkId);
+
+        if (profile == null)
+        {
+            return NotFound();
+        }
+
+        var profiles = await _context.Profiles
+            .Include(x => x.Skills)
+            .Include(x => x.Needs)
+            .Include(x => x.Connections)
+                .Where(x => x.Connections
+                    .Any(c => c.ProfileMatchPublicId == profile.PublicId && c.IsAccepted == true))
+                .Where(x => x.Skills
+                    .Any(x => x.TagName == skill))
+                    .Select(x => (ProfileGetListResponse)x)
+                    .ToListAsync();
+
+        var skillTags = profile.Skills
+            .Select(x => x.TagName)
+            .ToList();
+
+        return profiles
+                    .Where(x => x.Needs != null && x.Needs
+                        .Any(n => skillTags
+                            .Contains(n.TagName)))
+                    .Where(x => profile.Connections
+                        .Any(c => c.ProfileMatchPublicId == x.PublicId && c.IsAccepted == true))
+                        .ToList();
+    }
+
     [HttpGet("{clerkId}")]
     public async Task<ActionResult<ProfileGetResponse>> GetProfile(string clerkId)
     {
