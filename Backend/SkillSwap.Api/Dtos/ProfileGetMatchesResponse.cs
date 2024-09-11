@@ -2,7 +2,7 @@ using SkillSwap.Api.Models;
 
 namespace SkillSwap.Api.Dtos;
 
-public record ProfileGetListResponse(
+public record ProfileGetMatchesResponse(
     Guid PublicId,
     string Name,
     string? Bio,
@@ -11,9 +11,9 @@ public record ProfileGetListResponse(
     ICollection<GetNeed>? Needs
 )
 {
-    public static explicit operator ProfileGetListResponse(Profile profile)
+    public static explicit operator ProfileGetMatchesResponse(Profile profile)
     {
-        return new ProfileGetListResponse(
+        return new ProfileGetMatchesResponse(
             profile.PublicId,
             profile.Name,
             profile.Bio,

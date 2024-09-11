@@ -12,7 +12,7 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
     private readonly SkillSwapContext _context = context;
 
     [HttpGet("Matches/{clerkId}")]
-    public async Task<ActionResult<IEnumerable<ProfileGetListResponse>>> GetMatchingProfiles(string skill, string clerkId)
+    public async Task<ActionResult<IEnumerable<ProfileGetMatchesResponse>>> GetMatchingProfiles(string skill, string clerkId)
     {
         var profile = await _context.Profiles
             .Include(x => x.Skills)
@@ -33,7 +33,7 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
                 .Any(c => c.ProfileMatchPublicId == profile.PublicId && c.IsAccepted == false))
                 .Where(x => x.Skills
                     .Any(s => s.TagName == skill))
-                    .Select(x => (ProfileGetListResponse)x)
+                    .Select(x => (ProfileGetMatchesResponse)x)
                     .ToListAsync();
 
         var skillTags = profile.Skills
@@ -48,7 +48,7 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
     }
 
     [HttpGet("Connections/{clerkId}")]
-    public async Task<ActionResult<IEnumerable<ProfileGetListResponse>>> GetConnectingProfiles(string skill, string clerkId)
+    public async Task<ActionResult<IEnumerable<ProfileGetConnectionsResponse>>> GetConnectingProfiles(string skill, string clerkId)
     {
         var profile = await _context.Profiles
             .Include(x => x.Skills)
@@ -64,11 +64,12 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
             .Include(x => x.Skills)
             .Include(x => x.Needs)
             .Include(x => x.Connections)
+            .Include(x => x.ContactInformation)
                 .Where(x => x.Connections
                     .Any(c => c.ProfileMatchPublicId == profile.PublicId && c.IsAccepted == true))
                 .Where(x => x.Skills
                     .Any(x => x.TagName == skill))
-                    .Select(x => (ProfileGetListResponse)x)
+                    .Select(x => (ProfileGetConnectionsResponse)x)
                     .ToListAsync();
 
         var skillTags = profile.Skills
