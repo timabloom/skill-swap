@@ -24,7 +24,7 @@ public record ProfileGetResponse(
             profile.ImageUrl,
             profile.Skills.Select(x => new GetSkill(x.PublicId, x.TagName)).ToList(),
             profile.Needs.Select(x => new GetNeed(x.PublicId, x.TagName)).ToList(),
-            profile.Connections.Select(x => new GetConnection(x.PublicId, x.IsAccepted)).ToList(),
+            profile.Connections.Select(x => new GetConnection(x.PublicId, x.ProfileMatchPublicId, x.IsAccepted)).ToList(),
             profile.ContactInformation == null ? null : new GetContactInformation(profile.ContactInformation.PublicId, profile.ContactInformation.Email)
         );
     }

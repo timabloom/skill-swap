@@ -35,6 +35,9 @@ namespace SkillSwap.Api.Migrations
                     b.Property<int>("ProfileMatchId")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("ProfileMatchPublicId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("PublicId")
                         .HasColumnType("uniqueidentifier");
 

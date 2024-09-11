@@ -58,6 +58,7 @@ namespace SkillSwap.Api.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PublicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProfileMatchId = table.Column<int>(type: "int", nullable: false),
+                    ProfileMatchPublicId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsAccepted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>

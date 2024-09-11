@@ -11,7 +11,7 @@ namespace SkillSwap.Api.Models
         public Guid PublicId { get; set; } = Guid.NewGuid();
         [Required]
         public int ProfileMatchId { get; set; }
-        [NotMapped]
+        [Required]
         public Guid ProfileMatchPublicId { get; set; }
         [ForeignKey("ProfileMatchId")]
         public Profile ProfileMatch { get; set; } = null!;

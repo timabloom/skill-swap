@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace SkillSwap.Api.Migrations
 {
     [DbContext(typeof(SkillSwapContext))]
-    [Migration("20240909143010_InitialCreate")]
+    [Migration("20240911080652_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -37,6 +37,9 @@ namespace SkillSwap.Api.Migrations
 
                     b.Property<int>("ProfileMatchId")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("ProfileMatchPublicId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("PublicId")
                         .HasColumnType("uniqueidentifier");
