@@ -11,16 +11,40 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
 {
     private readonly SkillSwapContext _context = context;
 
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<ProfileGetListResponse>>> GetProfiles(string skill)
+    [HttpGet("Matches/{clerkId}")]
+    public async Task<ActionResult<IEnumerable<ProfileGetListResponse>>> GetMatchingProfiles(string skill, string clerkId)
     {
-        return await _context.Profiles
+        var profile = await _context.Profiles
+            .Include(x => x.Skills)
+            .Include(x => x.Connections)
+            .FirstOrDefaultAsync(x => x.ClerkId == clerkId);
+
+        if (profile == null)
+        {
+            return NotFound();
+        }
+
+        var profiles = await _context.Profiles
             .Include(x => x.Skills)
             .Include(x => x.Needs)
-            .Where(x => x.Skills
-                .Any(x => x.TagName == skill))
-                .Select(x => (ProfileGetListResponse)x)
-                .ToListAsync();
+            .Include(x => x.Connections)
+            .Where(x => x.ClerkId != profile.ClerkId)
+            .Where(x => x.Connections.Count == 0 || x.Connections
+                .Any(c => c.ProfileMatchPublicId == profile.PublicId && c.IsAccepted == false))
+                .Where(x => x.Skills
+                    .Any(s => s.TagName == skill))
+                    .Select(x => (ProfileGetListResponse)x)
+                    .ToListAsync();
+
+        var skillTags = profile.Skills
+            .Select(x => x.TagName)
+            .ToList();
+
+        return profiles
+            .Where(x => x.Needs != null && x.Needs
+                .Any(n => skillTags
+                    .Contains(n.TagName)))
+                    .ToList();
     }
 
     [HttpGet("{clerkId}")]
@@ -83,13 +107,13 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
 
         profile.Connections.Add(new Connection
         {
-            PublicId = Guid.NewGuid(),
             ProfileMatchId = connection.Id,
             ProfileMatchPublicId = connection.PublicId,
             ProfileMatch = connection,
             IsAccepted = true
         });
         await _context.SaveChangesAsync();
+
         return NoContent();
     }
 }
