@@ -14,7 +14,8 @@ function Matches() {
   const { user } = useUser()
 
   const { isPending, isError, data, error } = useQuery<ProfileResponse[]>({
-    queryKey: ['matches'], queryFn: () => getMatchingProfiles(user?.id)
+    queryKey: ['matches'], queryFn: () => getMatchingProfiles(user?.id),
+    refetchInterval: 3000,
   })
 
   if (isPending) {
@@ -30,7 +31,7 @@ function Matches() {
       <Header />
       <div className="bg-primary m-10 border rounded-xl">
         <h1 className="text-6xl text-center pt-8">Matches</h1>
-        <div className="grid grid-cols-3 gap-2 p-20 pt-10">
+        <div className="grid grid-cols-3 gap-4 p-20 pt-10">
           {data.map((profile) => (
             <UserProfile key={profile.publicId} profile={profile} />
           ))}
