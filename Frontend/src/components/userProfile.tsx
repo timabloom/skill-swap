@@ -21,7 +21,7 @@ function UserProfile({ profile }: { profile: ProfileResponse | undefined }) {
     })
 
     const isConnected = data?.connections?.find((connection) => connection.profileMatchPublicId === profile?.publicId)
-
+    console.log(profile)
     return (
         <div className="flex items-center justify-center p-10">
             <div className="flex flex-col max-w-2xl border rounded-md p-12" >
@@ -43,10 +43,6 @@ function UserProfile({ profile }: { profile: ProfileResponse | undefined }) {
                 </div>
 
                 <p>Contact Information</p>
-                <div className="flex gap-1">
-                    <p>Email</p>
-                    <p>{profile?.contactInformation?.email}</p>
-                </div>
                 <p>Skills</p>
                 <p>{profile?.skills?.map((skill) => skill.tagName)}</p>
                 <p>Needs</p>
@@ -58,6 +54,7 @@ function UserProfile({ profile }: { profile: ProfileResponse | undefined }) {
                         <button className={`btn ${mutation.isSuccess || isConnected?.isAccepted === true && "btn-success"}`} onClick={() => mutation.mutate()}>{mutation.isSuccess || isConnected?.isAccepted === true ? "Sent Interest to Connect!" : "Click to Connect!"}</button>
                     </>
                 }
+                <p>{profile?.contactInformation?.email}</p>
             </div>
         </div >
     )
