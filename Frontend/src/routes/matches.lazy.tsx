@@ -29,7 +29,7 @@ function Matches() {
   return (
     <>
       <Header />
-      <div className="bg-primary m-10 border rounded-xl">
+      <div className="bg-yellow-300 m-10 h-screen border rounded-xl">
         <h1 className="text-6xl text-center pt-8">Matches</h1>
         <div className="grid grid-cols-3 gap-4 p-20 pt-10">
           {data.map((profile) => (
