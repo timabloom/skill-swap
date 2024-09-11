@@ -26,11 +26,11 @@ function UserProfile({ profile }: { profile: ProfileResponse | undefined }) {
         <div className="flex flex-col max-w-lg border rounded-xl p-12 bg-white" >
 
             {!profile?.imageUrl &&
-                <div className="border rounded-2xl max-w-72 h-72 flex flex-col justify-end items-center">
+                <div className="border rounded-2xl h-96 flex flex-col justify-end items-center">
                     <div className="w-24 h-24 bg-gray-300 rounded-full mb-2"></div>
                     <div className="w-24 h-32 bg-gray-300 rounded-t-full"></div>
                 </div>}
-            {profile?.imageUrl && <img className="rounded-2xl  max-w-72 h-72 " src={profile?.imageUrl} alt="profile picture" />}
+            {profile?.imageUrl && <img className="rounded-2xl h-96 object-cover" src={profile?.imageUrl} alt="profile picture" />}
 
             <div className="flex pb-2 pt-4 gap-1">
                 <p className="text-lg font-bold">Name:</p>
@@ -49,19 +49,19 @@ function UserProfile({ profile }: { profile: ProfileResponse | undefined }) {
             <p className="font-bold text-lg pb-2 pt-4">My Skills</p>
             <div className="flex flex-wrap gap-2 pb-2 pt-2">
                 {profile?.skills?.map((skill) =>
-                    <p className={`badge ${need?.tagName === skill.tagName ? "badge-accent" : "bg-gray-300"} p-4`}>{skill.tagName}</p>
+                    <p className={`badge ${need?.tagName === skill.tagName ? "badge-accent" : "bg-gray-300"} p-4`} key={skill.publicId}>{skill.tagName}</p>
                 )}
             </div>
             <p className="font-bold text-lg pb-2 pt-4">I Need help with?</p>
             <div className="flex flex-wrap gap-2 pb-2 pt-2">
                 {profile?.needs?.map((skill) =>
-                    <p className="badge bg-gray-300 p-4">{skill.tagName}</p>
+                    <p className="badge bg-gray-300 p-4" key={skill.publicId}>{skill.tagName}</p>
                 )}
             </div>
 
             {!profile?.contactInformation &&
                 <>
-                    <button className={`mt-8 btn ${mutation.isSuccess || isConnected?.isAccepted === true ? "btn-success" : "btn-primary"}`} onClick={() => mutation.mutate()}>{mutation.isSuccess || isConnected?.isAccepted === true ? "Sent Interest to Connect!" : "Click to Connect!"}</button>
+                    <button className={`mt-8 btn ${mutation.isSuccess || isConnected?.isAccepted === true ? "btn-success" : "btn-primary"}`} onClick={() => mutation.mutate()}>{mutation.isSuccess || isConnected?.isAccepted === true ? "Invitation Sent Successfully!" : "Click to Connect!"}</button>
                 </>
             }
         </div>

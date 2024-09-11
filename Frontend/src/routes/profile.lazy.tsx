@@ -31,7 +31,7 @@ function Profile() {
     return (
       <>
         <Header />
-        <div className="bg-yellow-300 m-10 h-screen border rounded-xl">
+        <div className="bg-yellow-300 m-10 min-h-screen border rounded-xl">
           <h1 className="text-6xl text-center pt-8">Profile</h1>
           <div className="flex flex-col items-center p-20 pt-10">
             <UserProfile profile={data} />
