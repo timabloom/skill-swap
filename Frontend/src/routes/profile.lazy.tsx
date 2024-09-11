@@ -25,8 +25,12 @@ function Profile() {
   return (
     <>
       <Header />
-      <h1 className="text-3xl text-center pt-8">Profile</h1>
-      <UserProfile profile={profile} />
+      <div className="bg-primary m-10 border rounded-xl">
+        <h1 className="text-6xl text-center pt-8">Profile</h1>
+        <div className="flex flex-col items-center p-20 pt-10">
+          <UserProfile profile={profile} />
+        </div>
+      </div>
     </>
   )
 }
