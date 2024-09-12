@@ -115,7 +115,7 @@ function CreateProfile() {
             <button className="btn btn-primary w-12 text-xl" onClick={(e) => handleAddSkills(e)}>+</button>
           </div>
           <div className="flex flex-wrap gap-1 pt-2 pb-2">
-            {skills.map((skill) => <div key={skill.tagName} className="badge badge-accent">{skill.tagName}</div>)}
+            {skills.map((skill) => <div key={skill.tagName} className="badge badge-accent p-4">{skill.tagName}</div>)}
           </div>
 
           <label className="pt-8 pb-1" htmlFor="needs">Need help with?</label>
@@ -132,7 +132,7 @@ function CreateProfile() {
             <button className="btn btn-primary w-12 text-xl" onClick={(e) => handleAddNeeds(e)}>+</button>
           </div>
           <div className="flex flex-wrap gap-1 pt-2 pb-2">
-            {needs.map((need) => <div key={need.tagName} className="badge badge-accent">{need.tagName}</div>)}
+            {needs.map((need) => <div key={need.tagName} className="badge badge-accent p-4">{need.tagName}</div>)}
           </div>
 
           <h2 className="text-xl pt-10 pb-4">Contact Information</h2>
