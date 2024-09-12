@@ -41,9 +41,12 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
             .Where(x => x.Needs != null && x.Needs
                 .Any(n => skillTags
                     .Contains(n.TagName)))
-                    .Where(x => x.Connections.Count == 0 || profile.Connections.Count == 0 || x.Connections
-                        .Any(c => c.ProfileMatchPublicId == profile.PublicId && c.IsAccepted != true && profile.Connections
-                            .Any(c => c.ProfileMatchPublicId == x.PublicId && c.IsAccepted != true)))
+.Where(x => x.Connections.Count == 0 || profile.Connections.Count == 0 ||
+    x.Connections.Any(c => c.ProfileMatchPublicId == profile.PublicId && c.IsAccepted != true) ==
+      profile.Connections.Any(c => c.ProfileMatchPublicId == x.PublicId && c.IsAccepted != true) !=
+    x.Connections.All(c => c.ProfileMatchPublicId != profile.PublicId && c.IsAccepted == true) ==
+     profile.Connections.All(c => c.ProfileMatchPublicId != x.PublicId && c.IsAccepted == true))
+
                             .Select(x => (ProfileGetMatchesResponse)x)
                             .ToList();
     }
