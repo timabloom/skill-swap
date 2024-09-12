@@ -3,8 +3,15 @@ import { postConnection } from "../apiRequests/postConnection"
 import { ProfileResponse } from "../types"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { getProfile } from "../apiRequests/getProfile"
+import { getNewConnection } from "../apiRequests/getNewConnection"
 
-function UserProfile({ profile }: { profile: ProfileResponse | undefined }) {
+interface Connections {
+    publicId: string,
+    profileMatchPublicId: string,
+    isAccepted: true
+}
+
+function UserProfile({ profile, setNewConnection }: { profile: ProfileResponse | undefined, setNewConnection: React.Dispatch<React.SetStateAction<Connections[]>> }) {
     const { user } = useUser()
     const queryClient = useQueryClient()
 
@@ -21,6 +28,21 @@ function UserProfile({ profile }: { profile: ProfileResponse | undefined }) {
 
     const isConnected = data?.connections?.find((connection) => connection.profileMatchPublicId === profile?.publicId)
     const need = data?.needs?.[0]
+
+
+    const newConnection = useMutation<Connections[]>({
+        mutationFn: () => getNewConnection(user?.id, profile?.publicId),
+        onSuccess: (data) => {
+            queryClient.invalidateQueries({ queryKey: ['newConnection'] })
+            setNewConnection(data)
+        },
+
+    })
+
+    function handleClick() {
+        mutation.mutate()
+        newConnection.mutate()
+    }
 
     return (
         <div className="flex flex-col max-w-lg border rounded-xl p-12 bg-white" >
@@ -61,7 +83,7 @@ function UserProfile({ profile }: { profile: ProfileResponse | undefined }) {
 
             {!profile?.contactInformation &&
                 <>
-                    <button className={`mt-8 btn ${mutation.isSuccess || isConnected?.isAccepted === true ? "btn-success" : "btn-primary"}`} onClick={() => mutation.mutate()}>{mutation.isSuccess || isConnected?.isAccepted === true ? "Invitation Sent Successfully!" : "Click to Connect!"}</button>
+                    <button className={`mt-8 btn ${mutation.isSuccess || isConnected?.isAccepted === true ? "btn-success" : "btn-primary"}`} onClick={handleClick}>{mutation.isSuccess || isConnected?.isAccepted === true ? "Invitation Sent Successfully!" : "Click to Connect!"}</button>
                 </>
             }
         </div>
