@@ -84,8 +84,8 @@ function CreateProfile() {
 
   if (data?.clerkId !== user?.id) {
     return (
-      <div className="flex items-center justify-center p-10">
-        <form className="flex flex-col max-w-2xl border rounded-md p-12" onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex items-center justify-center p-10 bg-base-200">
+        <form className="flex flex-col max-w-2xl border rounded-md p-12 bg-white" onSubmit={handleSubmit(onSubmit)}>
           <h1 className="text-3xl text-center pb-8">Create Profile</h1>
 
           <div className="border rounded-2xl w-auto h-72 flex flex-col justify-end items-center">
