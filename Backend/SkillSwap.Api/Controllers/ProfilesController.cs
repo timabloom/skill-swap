@@ -88,6 +88,33 @@ public class ProfilesController(SkillSwapContext context) : ControllerBase
                         .ToList();
     }
 
+    [HttpGet("Connections/New/{clerkId}")]
+    public async Task<ActionResult<IEnumerable<GetConnection>>> GetNewConnection(Guid publicId, string clerkId)
+    {
+        var profile1 = await _context.Profiles
+            .Include(x => x.Connections)
+            .FirstOrDefaultAsync(x => x.ClerkId == clerkId);
+
+        if (profile1 == null)
+        {
+            return NotFound();
+        }
+
+        var profile2 = await _context.Profiles
+            .Include(x => x.Connections)
+            .FirstOrDefaultAsync(x => x.PublicId == publicId);
+
+        if (profile2 == null)
+        {
+            return NotFound();
+        }
+
+        return profile2.Connections
+            .Where(x => x.ProfileMatchPublicId == profile1.PublicId && x.IsAccepted == true)
+            .Select(x => (GetConnection)x)
+            .ToList();
+    }
+
     [HttpGet("{clerkId}")]
     public async Task<ActionResult<ProfileGetResponse>> GetProfile(string clerkId)
     {
