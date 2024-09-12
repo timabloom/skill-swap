@@ -16,7 +16,7 @@ public class SkillSwapContext : DbContext
                 Id = 1,
                 ClerkId = "emma_w_303",
                 Name = "Emma Watson",
-                Bio = "Backend developer focused on building scalable and efficient server-side applications",
+                Bio = "Backend developer focused on scalable and efficient server-side applications",
                 ImageUrl = "https://images.pexels.com/photos/7020543/pexels-photo-7020543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
                 ContactInformationId = 1,
             },
@@ -76,7 +76,7 @@ public class SkillSwapContext : DbContext
             new Need { Id = 1, TagName = "JavaScript", ProfileId = 1 },
             new Need { Id = 2, TagName = "CSS", ProfileId = 1 },
             new Need { Id = 3, TagName = "JavaScript", ProfileId = 2 },
-            new Need { Id = 4, TagName = "HTML", ProfileId = 2 },
+            new Need { Id = 4, TagName = "CSS", ProfileId = 2 },
             new Need { Id = 5, TagName = "JavaScript", ProfileId = 3 },
             new Need { Id = 6, TagName = "CSS", ProfileId = 3 },
             new Need { Id = 7, TagName = "Python", ProfileId = 4 },
@@ -85,11 +85,11 @@ public class SkillSwapContext : DbContext
 
         modelBuilder.Entity<Skill>().HasData(
             new Skill { Id = 1, TagName = "Python", ProfileId = 1 },
-            new Skill { Id = 2, TagName = "CSS", ProfileId = 1 },
+            new Skill { Id = 2, TagName = "C#", ProfileId = 1 },
             new Skill { Id = 3, TagName = "Python", ProfileId = 2 },
-            new Skill { Id = 4, TagName = "HTML", ProfileId = 2 },
+            new Skill { Id = 4, TagName = "C++", ProfileId = 2 },
             new Skill { Id = 5, TagName = "Python", ProfileId = 3 },
-            new Skill { Id = 6, TagName = "CSS", ProfileId = 3 },
+            new Skill { Id = 6, TagName = "Rust", ProfileId = 3 },
             new Skill { Id = 7, TagName = "JavaScript", ProfileId = 4 },
             new Skill { Id = 8, TagName = "CSS", ProfileId = 4 }
         );
