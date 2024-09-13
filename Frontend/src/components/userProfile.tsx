@@ -62,7 +62,7 @@ function UserProfile({ profile, setNewConnection }: { profile: ProfileResponse |
                 {profile?.contactInformation && profile?.contactInformation &&
                     <>
                         <p className="font-bold text-lg pb-2 pt-4">Contact information</p>
-                        <p>{profile?.contactInformation?.email}</p>
+                        <p className="text-lg">{profile?.contactInformation?.email}</p>
                     </>
                 }
                 <div className="pb-2 pt-4">
