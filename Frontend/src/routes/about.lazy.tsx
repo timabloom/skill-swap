@@ -27,7 +27,6 @@ function About() {
             <h3 className="text-3xl font-bold mt-10 mb-6 text-gray-900">Long-Term Goals</h3>
             <ul className="list-disc pl-4 mb-8">
               <li className="mb-2 text-2xl text-gray-600">In-app messaging system for matched users to communicate</li>
-              <li className="mb-2 text-2xl text-gray-600">Notification system for new matches or messages</li>
               <li className="mb-2 text-2xl text-gray-600">Scheduling feature with calendar integration for planning meetups</li>
             </ul>
           </div>
