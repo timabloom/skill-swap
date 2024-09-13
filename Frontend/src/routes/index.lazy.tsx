@@ -11,7 +11,7 @@ function Index() {
     return (
         <>
             <Header />
-            <div className="flex justify-between p-2 mt-10">
+            <div className="flex justify-between p-2 mt-0">
                 <div className="p-20 pr-0">
                     <div className="prose ml-10 mt-10">
                         <h1 className='text-8xl mb-0'>Trade Skills, Build Connections!</h1>
