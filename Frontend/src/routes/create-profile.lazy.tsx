@@ -85,12 +85,12 @@ function CreateProfile() {
   if (data?.clerkId !== user?.id) {
     return (
       <div className="flex items-center justify-center p-10 bg-base-200">
-        <form className="flex flex-col max-w-2xl border rounded-md p-12 bg-white" onSubmit={handleSubmit(onSubmit)}>
+        <form className="flex flex-col w-[500px] border rounded-xl p-12 bg-white" onSubmit={handleSubmit(onSubmit)}>
           <h1 className="text-3xl text-center pb-8">Create Profile</h1>
 
-          <div className="border rounded-2xl w-auto h-72 flex flex-col justify-end items-center">
-            <div className="w-24 h-24 bg-gray-300 rounded-full mb-2"></div>
-            <div className="w-24 h-32 bg-gray-300 rounded-t-full"></div>
+          <div className="border rounded-2xl w-auto h-80 flex flex-col justify-end items-center">
+            <div className="w-28 h-28 bg-gray-300 rounded-full mb-2"></div>
+            <div className="w-32 h-32 bg-gray-300 rounded-t-full"></div>
           </div>
 
           <input className="file-input file-input-bordered file-input-primary w-full mt-4" type="file" {...register("picture", { required: true })} />
