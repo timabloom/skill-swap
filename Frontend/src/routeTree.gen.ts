@@ -13,6 +13,7 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as LogoImport } from './routes/logo'
 
 // Create Virtual Routes
 
@@ -52,6 +53,11 @@ const AboutLazyRoute = AboutLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
 
+const LogoRoute = LogoImport.update({
+  path: '/logo',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
@@ -66,6 +72,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/logo': {
+      id: '/logo'
+      path: '/logo'
+      fullPath: '/logo'
+      preLoaderRoute: typeof LogoImport
       parentRoute: typeof rootRoute
     }
     '/about': {
@@ -110,6 +123,7 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
+  '/logo': typeof LogoRoute
   '/about': typeof AboutLazyRoute
   '/connections': typeof ConnectionsLazyRoute
   '/create-profile': typeof CreateProfileLazyRoute
@@ -119,6 +133,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
+  '/logo': typeof LogoRoute
   '/about': typeof AboutLazyRoute
   '/connections': typeof ConnectionsLazyRoute
   '/create-profile': typeof CreateProfileLazyRoute
@@ -129,6 +144,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
+  '/logo': typeof LogoRoute
   '/about': typeof AboutLazyRoute
   '/connections': typeof ConnectionsLazyRoute
   '/create-profile': typeof CreateProfileLazyRoute
@@ -140,6 +156,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/logo'
     | '/about'
     | '/connections'
     | '/create-profile'
@@ -148,6 +165,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/logo'
     | '/about'
     | '/connections'
     | '/create-profile'
@@ -156,6 +174,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/logo'
     | '/about'
     | '/connections'
     | '/create-profile'
@@ -166,6 +185,7 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
+  LogoRoute: typeof LogoRoute
   AboutLazyRoute: typeof AboutLazyRoute
   ConnectionsLazyRoute: typeof ConnectionsLazyRoute
   CreateProfileLazyRoute: typeof CreateProfileLazyRoute
@@ -175,6 +195,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
+  LogoRoute: LogoRoute,
   AboutLazyRoute: AboutLazyRoute,
   ConnectionsLazyRoute: ConnectionsLazyRoute,
   CreateProfileLazyRoute: CreateProfileLazyRoute,
@@ -195,6 +216,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/logo",
         "/about",
         "/connections",
         "/create-profile",
@@ -204,6 +226,9 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.lazy.tsx"
+    },
+    "/logo": {
+      "filePath": "logo.tsx"
     },
     "/about": {
       "filePath": "about.lazy.tsx"
