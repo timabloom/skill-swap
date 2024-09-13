@@ -15,13 +15,9 @@ function Profile() {
 
   const navigate = useNavigate({ from: '/profile' })
 
-  const { isLoading, data } = useQuery<ProfileResponse>({
+  const { data } = useQuery<ProfileResponse>({
     queryKey: ['profile'], queryFn: () => getProfile(user?.id)
   })
-
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
 
   if (data?.clerkId !== user?.id) {
     navigate({ to: '/create-profile' })
@@ -34,7 +30,7 @@ function Profile() {
         <div className="bg-yellow-300 m-10 min-h-screen border rounded-xl">
           <h1 className="text-6xl text-center pt-8">Profile</h1>
           <div className="flex flex-col items-center p-20 pt-10">
-            <UserProfile profile={data} />
+            <UserProfile profile={data} setNewConnection={() => {}}/>
           </div>
         </div>
       </>

@@ -5,41 +5,41 @@ function Header() {
     const { user } = useUser()
 
     return (
-        <header className="flex items-center justify-between p-4 pl-6 pr-6">
+        <header className="flex items-center justify-between p-8 pl-10 pr-10">
             <Link to="/" className="[&.active]:font-bold flex gap-1">
-                <p className="font-bold text-4xl">Skill</p>
-                <p className="font-bold text-4xl text-yellow-500">Swap</p>
+                <p className="font-bold text-5xl">Skill</p>
+                <p className="font-bold text-5xl text-yellow-500">Swap</p>
             </Link>
             <div className="flex items-center gap-4">
-                <Link to="/" className="[&.active]:font-bold text-xl">
+                <Link to="/" className="[&.active]:font-bold text-2xl">
                     Home
                 </Link>
                 
                 {user &&
                     <>
-                        <Link to="/profile" className="[&.active]:font-bold text-xl">
+                        <Link to="/profile" className="[&.active]:font-bold text-2xl">
                             Profile
                         </Link>
-                        <Link to="/matches" className="[&.active]:font-bold text-xl">
+                        <Link to="/matches" className="[&.active]:font-bold text-2xl">
                             Matches
                         </Link>
-                        <Link to="/connections" className="[&.active]:font-bold text-xl">
+                        <Link to="/connections" className="[&.active]:font-bold text-2xl">
                             Connections
                         </Link>
                     </>
                 }
 
-                <Link to="/about" className="[&.active]:font-bold text-xl">
+                <Link to="/about" className="[&.active]:font-bold text-2xl">
                     About
                 </Link>
                 <SignedOut>
-                    <SignInButton forceRedirectUrl="/profile"><button className="text-xl" >Sign In</button></SignInButton>
+                    <SignInButton forceRedirectUrl="/profile"><button className="text-2xl" >Sign In</button></SignInButton>
                 </SignedOut>
                 <SignedIn >
-                    <SignOutButton><button className="text-xl">Sign Out</button></SignOutButton>
+                    <SignOutButton><button className="text-2xl">Sign Out</button></SignOutButton>
                 </SignedIn>
                 <SignedOut>
-                    <SignUpButton signInForceRedirectUrl="/create-profile"><button className="btn btn-primary w-32 text-xl">Sign Up</button></SignUpButton>
+                    <SignUpButton signInForceRedirectUrl="/create-profile"><button className="btn btn-primary w-40 text-2xl">Sign Up</button></SignUpButton>
                 </SignedOut>
             </div>
         </header>

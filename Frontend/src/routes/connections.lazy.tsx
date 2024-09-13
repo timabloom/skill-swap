@@ -12,27 +12,19 @@ export const Route = createLazyFileRoute('/connections')({
 
 function Connections() {
   const { user } = useUser()
-  const { isPending, isError, data, error } = useQuery<ProfileResponse[]>({
+  const { data } = useQuery<ProfileResponse[]>({
     queryKey: ['connections'], queryFn: () => getConnectingProfiles(user?.id),
     refetchInterval: 3000,
   })
-
-  if (isPending) {
-    return <div>Loading...</div>
-  }
-
-  if (isError) {
-    return <span>Error: {error.message}</span>
-  }
 
   return (
     <>
       <Header />
       <div className="bg-yellow-300 m-10 min-h-screen border rounded-xl">
         <h1 className="text-6xl text-center pt-8">Connections</h1>
-        <div className="grid grid-cols-3 gap-4 p-20 pt-10">
-          {data.map((profile) => (
-            <UserProfile key={profile.publicId} profile={profile} />
+        <div className="grid grid-cols-3 gap-10 p-20 pt-10">
+          {data?.map((profile) => (
+            <UserProfile key={profile.publicId} profile={profile} setNewConnection={() => {}}/>
           ))}
         </div>
       </div>
