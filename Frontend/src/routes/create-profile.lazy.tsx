@@ -28,7 +28,8 @@ interface need {
 
 const skillsList = [
   "JavaScript",
-  "Python"
+  "Python",
+  "C++",
 ];
 
 function CreateProfile() {
