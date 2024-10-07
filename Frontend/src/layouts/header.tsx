@@ -33,13 +33,13 @@ function Header() {
                     About
                 </Link>
                 <SignedOut>
-                    <SignInButton forceRedirectUrl="/profile"><button className="text-2xl" >Sign In</button></SignInButton>
+                    <SignInButton mode="modal" forceRedirectUrl="/profile"><button className="text-2xl" >Sign In</button></SignInButton>
                 </SignedOut>
                 <SignedIn >
                     <SignOutButton><button className="text-2xl">Sign Out</button></SignOutButton>
                 </SignedIn>
                 <SignedOut>
-                    <SignUpButton signInForceRedirectUrl="/create-profile"><button className="btn btn-primary w-40 text-2xl">Sign Up</button></SignUpButton>
+                    <SignUpButton mode="modal" signInForceRedirectUrl="/create-profile"><button className="btn btn-primary w-40 text-2xl">Sign Up</button></SignUpButton>
                 </SignedOut>
             </div>
         </header>

@@ -17,7 +17,7 @@ function Index() {
                         <h1 className='text-8xl mb-0'>Trade Skills, Build Connections!</h1>
                         <div className="flex flex-col">
                             <p className="text-3xl">Register now to start collaborating and building valuable connections.</p>
-                            <SignUpButton signInForceRedirectUrl="/create-profile"><button className="btn btn-primary w-40 text-2xl">Sign Up</button></SignUpButton>
+                            <SignUpButton mode="modal" signInForceRedirectUrl="/create-profile"><button className="btn btn-primary w-40 text-2xl">Sign Up</button></SignUpButton>
                         </div>
                     </div>
                     <img className="w-[1000px] -ml-20 -mt-32 absolute z-[-1]" src="/llline.svg" alt="" />
